@@ -9,6 +9,11 @@ router.get('/', (req, res) => {
 		.then(allPosts => {
 			res.send({ status: "success", posts: allPosts })
 		})
+		.catch(err => {
+			console.log(err);
+	
+			res.send({ status: "error", err })
+		})
 })
 
 router.get('/:id', (req, res) => {
@@ -16,12 +21,22 @@ router.get('/:id', (req, res) => {
 		.then(post => {
 			res.send({ status: "success", post })
 		})
+		.catch(err => {
+			console.log(err);
+	
+			res.send({ status: "error", err })
+		})
 })
 
 router.get('/byuser/:userId', (req, res) => {
 	Post.find({ userId: req.params.userId }).exec()
 		.then(allPosts => {
 			res.send({ status: "success", posts: allPosts })
+		})
+		.catch(err => {
+			console.log(err);
+	
+			res.send({ status: "error", err })
 		})
 })
 
@@ -50,11 +65,12 @@ router.post('/', (req, res) => {
 				res.send({ status: "error", error });
 			}
 			//send response
-
+			
 			result = JSON.parse(body);
 			Post.create({ ...req.body, imageUrl: result.data.link })
 				.then(result => {
-					res.send({ status: "created", id: result._id });			
+					console.log(result.imageUrl, result.description)
+					res.send({ status: "created", _id: result._id, description: result.description });			
 				});
 			console.log(body)
 		});
@@ -63,6 +79,20 @@ router.post('/', (req, res) => {
 		upload.append('type', 'file');
 		upload.append('image', base64Image);
 	});
+})
+
+router.delete('/:id', (req, res) => {
+	console.log("indelete")
+	Post.findOneAndDelete({ _id: req.params.id }).exec()
+		.then( deletedPost =>{
+			console.log(deletedPost)
+			res.send({ status: "success", deletedPost })
+		})
+		.catch(err => {
+			console.log(err);
+	
+			res.send({ status: "error", err })
+		})
 })
 
 module.exports = router;
