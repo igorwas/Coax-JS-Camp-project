@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const posts = require('./routes/post');
 const users = require('./routes/user');
+const comments = require('./routes/comment')
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 // Set up routes
 app.use('/api/posts', posts);
 app.use('/api/users', users);
+app.use('/api/posts', comments);
 
 
 app.listen(3030, () => {

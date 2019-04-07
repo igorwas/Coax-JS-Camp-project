@@ -4,42 +4,54 @@ import { Link } from 'react-router-dom';
 import PostItem from '../containers/PostListItem';
 
 class PostList extends Component{
+    constructor() {
+        super();
+        this.loadMore = this.loadMore.bind(this);
+    }
+
     componentDidMount(){
-        this.props.getPostsFromServer();
+        this.props.getPostsFromServer(this.props.userId);
+    }
+
+    loadMore(){
+        console.log(this.props.offset)
+        this.props.loadMore(this.props.offset+12)
     }
 
     render(){
         console.log(this.props)
         const {
+            userId,
             postListData
         } = this.props
-        console.log(postListData)
+        console.log(userId);
+        const loadMoreBtn = Object.keys(postListData).length >= 12 && postListData !==undefined ? 
+           <div className ="col-12"><button className="btn btn-primary mb-5" onClick={this.loadMore}>Load More </button></div> : '' 
+        
         return(
-            <div>
-                <ul>
-                    {
-                        Object.keys(postListData).map(id => {
-                            console.log(id)
-                            return(
-                                // <PostItem 
-                                //     key = { id }
-                                //     id = { id }
-                                // />
-                                <li key={id}>
-                                    <Link to={`/posts/${id}`}>
-                                        { //() => { return (<img src="${postListData[id].imageUrl}" alt="${postListData[id].description}"/>) }
-                                             postListData[id].imageUrl
-                                        }
-
-                                    </Link>
-                                    {/* <button id={postListData[id]._id}
-                                        onClick={this.delete}>delete
-                                    </button> */}
-                                </li>
-                            )
-                        })
+            <div className="row">
+                {
+                    Object.keys(postListData).map(id => (
+                    //         <PostItem 
+                    //             key = { id }
+                    //             postId = { id }
+                    //         />
+                    // )
+                        
+                            <React.Fragment key={id}>
+                                <Link className='col-sm-6 col-lg-4 mb-2' to={`/posts/${id}`}>
+                                    <img className='img-fluid'
+                                        src={postListData[id].imageUrl} 
+                                        alt={postListData[id].description}/>
+                                </Link>
+                                {/* <button id={postListData[id]._id}
+                                    onClick={this.delete}>delete
+                                </button> */}
+                            </React.Fragment>
+                        
+                    ))
                     }
-                </ul>
+                    {loadMoreBtn}
             </div>
         )
 

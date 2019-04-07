@@ -8,8 +8,6 @@ class FormCreatePost extends Component{
 
     onSubmitForm(e){
         e.preventDefault();
-        console.log(e.target.description.value)
-        console.log(e.target.image.files[0])
         const newPost ={
             userId: localStorage.getItem("userId"),
             image: e.target.image.files[0],
@@ -45,7 +43,6 @@ class FormCreatePost extends Component{
                     className="form-control mb-2"
                     placeholder="Type description"
                     />
-                
                 <input 
                     name="tags"
                     type="tags" 

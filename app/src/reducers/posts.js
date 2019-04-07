@@ -1,11 +1,13 @@
 const initialState = {
     list: {},
+    selectedPost: {},
+    offset: 0
 }
 
 const postsReducer = (state = initialState, action) => {
     switch(action.type){
         case 'UPDATE_POST_LIST' : {
-            console.log("reducers");
+            console.log("reducers init fetch");
             console.log(action.payload)
             return Object.assign({}, state, {
                 list: action.payload
@@ -15,8 +17,26 @@ const postsReducer = (state = initialState, action) => {
             console.log("reducers add post");
             console.log(action.payload)
             alert("Post is added")
+            const newList = Object.assign({}, action.payload, state.list );
+            console.log(newList)
             return Object.assign({}, state, {
-                list: Object.assign( state.list, action.payload.post )
+                list: newList
+            })
+        }
+        case 'LOAD_MORE' : {
+            console.log("reducers LOAD MORE");
+            console.log(action.payload)
+            console.log(action.payload.objectsList)
+            return Object.assign({}, state, {
+                list: Object.assign( state.list, action.payload.objectsList),
+                offset: action.payload.offset
+            })
+        }
+        case 'LOAD_SINGLE_POST' : {
+            console.log("reducers LOAD single");
+            console.log(action.payload.post)
+            return Object.assign({}, state, {
+                selectedPost: action.payload.post
             })
         }
         // case 'DELETE_POST' : {

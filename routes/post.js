@@ -1,13 +1,16 @@
 const router = require('express').Router();
-const fs = require("fs");
-const request = require("request");
 
 const Post = require("../models/post");
-
+// /?offset=
 router.get('/', (req, res) => {
 	Post.find().exec()
 		.then(allPosts => {
-			res.send({ status: "success", posts: allPosts })
+			const offset = req.query.offset ? req.query.offset : 0 ;
+			const until = +offset + 12;
+			console.log(until)
+			const reversedPosts = allPosts.reverse().slice(offset, until)
+			console.log(reversedPosts)
+			res.send({ status: "success", posts: reversedPosts })
 		})
 		.catch(err => {
 			console.log(err);
@@ -31,7 +34,11 @@ router.get('/:id', (req, res) => {
 router.get('/byuser/:userId', (req, res) => {
 	Post.find({ userId: req.params.userId }).exec()
 		.then(allPosts => {
-			res.send({ status: "success", posts: allPosts })
+			const offset = req.query.offset ? req.query.offset : 0 ;
+			const until = +offset + 12;
+			console.log(until)
+			const reversedPosts = allPosts.reverse().slice(offset, until)
+			res.send({ status: "success", posts: reversedPosts })
 		})
 		.catch(err => {
 			console.log(err);
@@ -41,10 +48,6 @@ router.get('/byuser/:userId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-
-	//req.body.Image as base64
-	//Validation
-
 	Post.create({ ...req.body})
 		.then(result => {
 			console.log(result.imageUrl, result.description)
@@ -54,34 +57,6 @@ router.post('/', (req, res) => {
 			console.log(err);
 			res.send({ status: "error", err })
 		})
-		//Upload to imgur
-	// const postToImgur = request.post('https://api.imgur.com/3/image', {
-	// 	headers: {
-	// 		'Authorization': "Bearer b5020116034d3925e2cb8c093dc86e6a979564e5",
-			
-	// 		// Taras  8007ca856c67c01c49fd42315d96d694681be621
-	// 		//mine #access_token=b5020116034d3925e2cb8c093dc86e6a979564e5 bearer 
-	// 		//refresh_token=3dec2b61117650d8f92411518ec169a1fe3b6433
-	// 	}
-	// }, (error, response, body) => {
-	// 	//send error
-	// 	if (error) {
-	// 		res.send({ status: "error", error });
-	// 	}
-	// 	//send response
-		
-	// 	result = JSON.parse(body);
-	// 	Post.create({ ...req.body, imageUrl: result.data.link })
-	// 		.then(result => {
-	// 			console.log(result.imageUrl, result.description)
-	// 			res.send({ status: "created", _id: result._id, description: result.description });			
-	// 		});
-	// 	console.log(body)
-	// });
-
-	// const upload = postToImgur.form();
-	// upload.append('type', 'file');
-	// upload.append('image', req.imageBase64);
 })
 
 router.delete('/:id', (req, res) => {

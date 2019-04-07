@@ -1,5 +1,7 @@
 import { arrayToObject } from '../helpers/arrayToObject';
 
+const BASE_POSTS_API_URL = 'http://localhost:3030/api/posts/';
+
 const updatePostList = payload => ({
     type: 'UPDATE_POST_LIST',
     payload
@@ -15,22 +17,72 @@ const deleteSomePost = payload =>({
     payload
 })
 
+const loadMore = payload =>({
+    type: 'LOAD_MORE',
+    payload
+})
 
-const fetchPosts = () => {
+const loadSingle = payload =>({
+    type: 'LOAD_SINGLE_POST',
+    payload
+})
+
+
+const fetchPostsByUser = (id) => {
+    if(id!==undefined){
+        return dispatch => {
+            fetch(BASE_POSTS_API_URL+'/byuser/'+id)
+                .then(response => response.json())
+                .then(json => {
+                    const objectsList = arrayToObject(json.posts, "_id");
+                    console.log("objec of objects from server");
+                    console.log(objectsList);
+                    dispatch(updatePostList(objectsList));
+                })
+                .catch(error => console.log(error));   
+        }    
+    }
+    else{
+        return dispatch => {
+            fetch(BASE_POSTS_API_URL)
+                .then(response => response.json())
+                .then(json => {
+                    const objectsList = arrayToObject(json.posts, "_id");
+                    console.log("objec of objects from server");
+                    console.log(objectsList);
+                    dispatch(updatePostList(objectsList));
+                })
+                .catch(error => console.log(error));   
+        }    
+    }
+    
+}
+
+const loadMorePosts = (offset) => {
     return dispatch => {
-        fetch("http://localhost:3030/api/posts/")
+        fetch(`${BASE_POSTS_API_URL}?offset=${offset}`)
             .then(response => response.json())
             .then(json => {
                 const objectsList = arrayToObject(json.posts, "_id");
-                console.log("objec of objects from server");
+                console.log("objec of objects load more");
                 console.log(objectsList);
-                dispatch(updatePostList(objectsList));
+                dispatch(loadMore({ objectsList, offset }));
             })
             .catch(error => console.log(error));   
     }
 }
 
-
+const loadSinglePost = (id) => {
+    return dispatch => {
+        console.log("inside action single")
+        fetch(BASE_POSTS_API_URL+id)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                dispatch(loadSingle(json))
+            }).catch(error => console.log(error))   
+    }
+}
 
 const createNewPost = (newPostData) =>{
     return dispatch =>{
@@ -53,7 +105,7 @@ const createNewPost = (newPostData) =>{
                     tags: newPostData.tags
                 }
                 console.log(JSON.stringify(post))
-                fetch('http://localhost:3030/api/posts/', {
+                fetch(BASE_POSTS_API_URL, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -63,30 +115,21 @@ const createNewPost = (newPostData) =>{
                         .then(res => res.json())
                         .then(json => {
                             console.log(json)
-                            dispatch(addNewPost(json))
+                            const array = [json.post]
+                            const objectsList = arrayToObject(array, "_id");
+                            console.log(objectsList)
+                            dispatch(addNewPost(objectsList))
                         }).catch(err => console.log(err));
         }).catch(error => {
             console.error(error);
             alert('Upload failed: ' + error);
         });
-        // fetch('http://localhost:3030/api/posts/', {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     method: 'POST',
-        //     body: JSON.stringify(newPostData)
-        //     })
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         console.log(json)
-        //         dispatch(addNewPost(json))
-        //     }).catch(err => err);
     }
 }
 
 const deletePost = (id) =>{
     return dispatch =>{
-        fetch(`http://localhost:3030/api/posts/${id}`, {
+        fetch(BASE_POSTS_API_URL+id, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -101,7 +144,9 @@ const deletePost = (id) =>{
 }
 
 export {
-    fetchPosts,
+    fetchPostsByUser,
     createNewPost,
-    deletePost
+    deletePost,
+    loadMorePosts,
+    loadSinglePost
 }

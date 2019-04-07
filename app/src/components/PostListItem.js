@@ -22,6 +22,5 @@ class PostItem extends PureComponent{
         )
     }
 }
-//<img src ={imageUrl} />
 
 export default PostItem;

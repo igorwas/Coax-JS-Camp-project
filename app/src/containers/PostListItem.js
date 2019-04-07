@@ -7,7 +7,7 @@ import PostItem from '../components/PostList';
 const PostRow = props => <PostItem {...props}/>
 
 const mapStateToProps = (state, props) => ({
-    //itemData: state.posts.list[props.id]
+    itemData: state.posts.list[props.id]
 })
 
 const mapDispatchToProps = dispatch => ({

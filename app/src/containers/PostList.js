@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PostListComponent from '../components/PostList';
-import { fetchPosts, deletePost } from '../actionCreators/posts';
+import { fetchPostsByUser, deletePost ,loadMorePosts } from '../actionCreators/posts';
 
 const PostList = props => <PostListComponent {...props}/>
 
-const mapStateToProps = state => ({
-    postListData: state.posts.list
+const mapStateToProps = ( state,props ) => ({
+    postListData: state.posts.list,
+    offset: state.posts.offset,
+    userId: props.userId
 })
 
 const mapDispatchToProps = dispatch =>({
-    getPostsFromServer: () => dispatch(fetchPosts()),
-    deletePost: id => dispatch(deletePost(id))
+    getPostsFromServer: id => dispatch(fetchPostsByUser(id)),
+    //deletePost: id => dispatch(deletePost(id))
+    loadMore: offset => dispatch(loadMorePosts(offset)) 
 })
 
 export default connect( 
