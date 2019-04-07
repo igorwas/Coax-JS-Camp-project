@@ -10,7 +10,7 @@ const app = express();
 
 // Set up middleware
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({  extended: true }));
 app.use(bodyParser.json());
 
 // Set up routes

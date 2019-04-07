@@ -14,9 +14,9 @@ const postsReducer = (state = initialState, action) => {
         case 'ADD_NEW_POST' : {
             console.log("reducers add post");
             console.log(action.payload)
-            console.log(state.list)
+            alert("Post is added")
             return Object.assign({}, state, {
-                list: Object.assign( state.list, action.payload )
+                list: Object.assign( state.list, action.payload.post )
             })
         }
         // case 'DELETE_POST' : {
