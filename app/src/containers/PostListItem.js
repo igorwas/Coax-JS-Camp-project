@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 //import { deletePost } from '../actionCreators/posts';
 
-import PostItem from '../components/PostList';
+import PostItem from '../components/PostListItem';
 
 const PostRow = props => <PostItem {...props}/>
 
 const mapStateToProps = (state, props) => ({
-    itemData: state.posts.list[props.id]
+    itemData: state.posts.list[props.postId]
 })
 
 const mapDispatchToProps = dispatch => ({

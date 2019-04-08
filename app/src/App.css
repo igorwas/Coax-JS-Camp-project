@@ -12,3 +12,8 @@ header a{
     height: 2px;
     background: black
 }
+
+.heart{
+    max-width: 30px;
+    margin-right: 10px;
+}

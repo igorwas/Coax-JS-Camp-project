@@ -9,7 +9,7 @@ class CommentListItem extends PureComponent{
                 <div>
                     <h5>{commentItem.comment}</h5>
                     <span>{createdAt}</span>
-                    <span>by 
+                    <span> by 
                         <a href={`/profile/${commentItem.userId}`}> {commentItem.userId}</a></span> 
                         {/* didn't finished, need download authors */}
                 </div>

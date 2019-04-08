@@ -13,12 +13,12 @@ router.get('/:postId/likes', (req, res) => {
 			res.send({ status: "error", err })
     	})
 })
-
-router.get('/:postId/isliked', (req, res) => {
-	Like.findOne({ postId: req.params.postId , userId: req.body.userId }).exec()
+// /is-liked?userId=
+router.get('/:postId/is-liked', (req, res) => {
+	Like.findOne({ postId: req.params.postId , userId: req.query.userId }).exec()
 		.then(like => {
 			if(like){
-				res.send({ status: "success", isliked: true });
+				res.send({ status: "success", isLiked: true });
 			} else {
 				res.send({ status: "success", isLiked: false });
 			}			
@@ -30,6 +30,7 @@ router.get('/:postId/isliked', (req, res) => {
 })
 
 router.post('/:postId/likes', (req, res) => {
+	console.log(req.body)
 	Like.create({ postId: req.params.postId , userId: req.body.userId })
 		.then(like => {
 			console.log(like)

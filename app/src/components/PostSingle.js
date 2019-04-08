@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import CommentList from '../containers/CommentList';
 import FormCreateComment from '../containers/FormCreateComment';
+import Likes from '../containers/Likes';
 
 class PostSinglePage extends Component {
     constructor() {
@@ -29,11 +30,14 @@ class PostSinglePage extends Component {
         console.log(author);
         if(author == undefined || author._id !== post.userId ) this.loadUser(post.userId);
         console.log(author)
-        const authorLink = author ? <Link to={`/profile/${author._id}`}><h5>Author: {author.firstName} {author.lastName}</h5></Link> : '' ;    
+        const authorLink = author ? <Link to={`/profile/${author._id}`}><h5>Author: {author.firstName} {author.lastName}</h5></Link> : null ;    
         const createdAt = new Date(+post.createdAt).toLocaleString("ua-UA");
         console.log(post._id)
+        const likes = post._id ? <Likes postId={post._id} /> : null;
+        const createComment = localStorage.getItem("userId") ? 
+            <div className='row'><div className='col-12'><hr className='hr-bolded'/><h4>Add comment:</h4><hr /></div><FormCreateComment /></div> : null;
         const comments = post._id ? <CommentList postId = { post._id }/> : '';
-        const createComment = localStorage.getItem("userId") ? <div className='row'><div className='col-12'><hr className='hr-bolded'/><h4>Add comment:</h4><hr /></div><FormCreateComment /></div> :'';
+        
         
         return(
             <React.Fragment>
@@ -55,6 +59,7 @@ class PostSinglePage extends Component {
                                 }
                             })
                         }
+                        {likes}
                         {authorLink}
                     </div>
                 </div>

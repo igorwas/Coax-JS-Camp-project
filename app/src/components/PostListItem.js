@@ -8,17 +8,21 @@ class PostItem extends PureComponent{
     // }
 
     render(){
-        console.log(this.props)
         const { itemData } = this.props;
+        const id = itemData ? itemData._id : null; 
+        const description = itemData ? itemData.description : null;
+        const imageUrl = itemData ? itemData.imageUrl : null;
+        
         return (
-            <li >
-                <Link to={`/posts/${itemData._id}`}>
-                    {itemData.description}
+            
+            <React.Fragment key={id}>
+                <Link className='col-sm-6 col-lg-4 mb-2' to={`/posts/${id}`}>
+                    <img className='img-fluid'
+                        src={imageUrl} 
+                        alt={description}/>
                 </Link>
-                <button id={_id}
-                    onClick={/*this.delete*/}>delete
-                </button>
-            </li>
+            </React.Fragment>
+            
         )
     }
 }

@@ -2,7 +2,6 @@ const router = require('express').Router();
 
 const Post = require("../models/post");
 // /?offset=
-
 router.get('/', (req, res) => {
 	Post.find({}, "imageUrl description").exec()
 		.then(allPosts => {

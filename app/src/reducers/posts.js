@@ -25,10 +25,13 @@ const postsReducer = (state = initialState, action) => {
         }
         case 'LOAD_MORE' : {
             console.log("reducers LOAD MORE");
-            console.log(action.payload)
-            console.log(action.payload.objectsList)
+            console.log(action.payload);
+            console.log(action.payload.objectsList);
+
+            const newList = Object.assign({}, state.list, action.payload.objectsList);
+            console.log(newList)
             return Object.assign({}, state, {
-                list: Object.assign( state.list, action.payload.objectsList),
+                list: newList,
                 offset: action.payload.offset
             })
         }
