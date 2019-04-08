@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-	User.findOne({ _id: req.params.id }, "email firstName lastName createdAt").exec().then(user => {
+	User.findOne({ _id: req.params.id}, "email firstName lastName createdAt").exec().then(user => {
 		res.send({ status: "success", user })
 	})
 	.catch(err => {

@@ -5,8 +5,9 @@ const Comment = require("../models/comment");
 router.get('/:postId/comments', (req, res) => {
 	Comment.find({ postId: req.params.postId }).exec()
 		.then(allComments => {
+			console.log(allComments)
 			const reversedComments = allComments.reverse();
-			res.send({ status: "success", posts: reversedComments })
+			res.send({ status: "success", comments: reversedComments })
 		})
 		.catch(err => {
 			console.log(err);
@@ -14,9 +15,8 @@ router.get('/:postId/comments', (req, res) => {
     })
 })
 
-router.post('/:postId/comments', (req, res) => {
-    console.log({ ...req.body, postId: req.params.postId })
-	Comment.create({ ...req.body, postId: req.params.postId })
+router.post('/:postId/comment', (req, res) => {
+	Comment.create( req.body )
 		.then(result => {
 			console.log(result)
 			res.send({ status: "created", comment: result});			

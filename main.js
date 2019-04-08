@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const posts = require('./routes/post');
 const users = require('./routes/user');
 const comments = require('./routes/comment')
+const likes = require('./routes/like')
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use('/api/posts', posts);
 app.use('/api/users', users);
 app.use('/api/posts', comments);
-
+app.use('/api/posts', likes);
 
 app.listen(3030, () => {
 	console.log('Server is listening');

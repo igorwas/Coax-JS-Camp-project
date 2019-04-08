@@ -27,6 +27,11 @@ const loadSingle = payload =>({
     payload
 })
 
+const cleanSelected = payload =>({
+    type: 'CLEAN_SELECTED_POST',
+    payload
+})
+
 
 const fetchPostsByUser = (id) => {
     if(id!==undefined){
@@ -127,26 +132,33 @@ const createNewPost = (newPostData) =>{
     }
 }
 
-const deletePost = (id) =>{
-    return dispatch =>{
-        fetch(BASE_POSTS_API_URL+id, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(json => {
-                console.log(json)
-                dispatch(deleteSomePost({ id: id }))
-            }).catch(err => err);
-    }
+const cleanSelectedPost = () => {
+    return dispatch => {
+        dispatch(cleanSelected());
+    }       
 }
+
+// const deletePost = (id) =>{
+//     return dispatch =>{
+//         fetch(BASE_POSTS_API_URL+id, {
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             method: 'DELETE'
+//             })
+//             .then(res => res.json())
+//             .then(json => {
+//                 console.log(json)
+//                 dispatch(deleteSomePost({ id: id }))
+//             }).catch(err => err);
+//     }
+// }
 
 export {
     fetchPostsByUser,
     createNewPost,
-    deletePost,
+    //deletePost,
     loadMorePosts,
-    loadSinglePost
+    loadSinglePost,
+    cleanSelectedPost
 }

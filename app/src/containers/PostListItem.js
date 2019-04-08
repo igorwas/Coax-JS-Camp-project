@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deletePost } from '../actionCreators/posts';
+//import { deletePost } from '../actionCreators/posts';
 
 import PostItem from '../components/PostList';
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    deletePost: id => dispatch(deletePost(id))
+    //deletePost: id => dispatch(deletePost(id))
 })
 
 export default connect(

@@ -53,6 +53,12 @@ const userReducer = (state = initialState, action) => {
             })
             
         }
+        case 'CLEAN_SELECTED_USER' : {
+            console.log("reducers clean selected user");
+            return Object.assign({}, state, {
+                selectedUser: {}
+            })
+        }
         default: return state;
     }
 }

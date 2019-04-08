@@ -27,7 +27,7 @@ class PostList extends Component{
         console.log(userId);
         const loadMoreBtn = Object.keys(postListData).length >= 12 && postListData !==undefined ? 
            <div className ="col-12"><button className="btn btn-primary mb-5" onClick={this.loadMore}>Load More </button></div> : '' 
-        
+
         return(
             <div className="row">
                 {

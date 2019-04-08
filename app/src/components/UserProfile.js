@@ -34,6 +34,10 @@ class UserProfile extends Component {
             </React.Fragment>
         )
     }
+
+    componentWillUnmount(){
+        this.props.cleanSelectedUser();
+    }
 }
 
 export default UserProfile;

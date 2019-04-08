@@ -2,8 +2,9 @@ const router = require('express').Router();
 
 const Post = require("../models/post");
 // /?offset=
+
 router.get('/', (req, res) => {
-	Post.find().exec()
+	Post.find({}, "imageUrl description").exec()
 		.then(allPosts => {
 			const offset = req.query.offset ? req.query.offset : 0 ;
 			const until = +offset + 12;
@@ -32,7 +33,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/byuser/:userId', (req, res) => {
-	Post.find({ userId: req.params.userId }).exec()
+	Post.find({ userId: req.params.userId }, "imageUrl description").exec()
 		.then(allPosts => {
 			const offset = req.query.offset ? req.query.offset : 0 ;
 			const until = +offset + 12;

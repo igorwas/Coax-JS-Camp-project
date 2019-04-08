@@ -17,6 +17,11 @@ const getSingleUser = payload => ({
     payload
 })
 
+const cleanSelected = payload => ({
+    type: 'CLEAN_SELECTED_USER',
+    payload
+})
+
 const signUpNewUser = (user) =>{
     return dispatch =>{
         console.log(JSON.stringify(user));
@@ -58,6 +63,7 @@ const signOutUser = () =>{
 }
 
 const getUserProfile = (id) =>{
+    console.log(id)
     return dispatch =>{
         fetch(`http://localhost:3030/api/users/${id}`)
             .then(res => res.json())
@@ -67,9 +73,16 @@ const getUserProfile = (id) =>{
     }
 }
 
+const cleanSelectedUser = () => {
+    return dispatch => {
+        dispatch(cleanSelected());
+    }       
+}
+
 export {
     signUpNewUser,
     signInUser,
     getUserProfile,
-    signOutUser
+    signOutUser,
+    cleanSelectedUser
 }

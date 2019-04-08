@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UserProfileComponent from '../components/UserProfile';
-import { getUserProfile } from '../actionCreators/users';
+import { getUserProfile, cleanSelectedUser } from '../actionCreators/users';
 
 const UserProfile = props => <UserProfileComponent {...props}/>
 
@@ -10,7 +10,8 @@ const mapStateToProps = ( state, props ) => ({
 })
 
 const mapDispatchToProps = dispatch =>({
-    getUserProfile: id => dispatch(getUserProfile(id))
+    getUserProfile: id => dispatch(getUserProfile(id)),
+    cleanSelectedUser: () => dispatch(cleanSelectedUser())
 })
 
 export default connect( 

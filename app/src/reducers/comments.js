@@ -1,51 +1,47 @@
 const initialState = {
     list: {},
-    selectedPost: {},
-    offset: 0
 }
 
 const postsReducer = (state = initialState, action) => {
     switch(action.type){
-        case 'UPDATE_POST_LIST' : {
+        case 'GET_COMMENTS' : {
             console.log("reducers init fetch");
             console.log(action.payload)
             return Object.assign({}, state, {
                 list: action.payload
             })
         }
-        case 'ADD_NEW_POST' : {
-            console.log("reducers add post");
+        case 'CLEAN_COMMENTS' : {
+            console.log("reducers clean comments");
+            return Object.assign({}, state, {
+                list: {}
+            })
+        }
+        case 'ADD_NEW_COMMENT' : {
+            console.log("reducers add comment");
             console.log(action.payload)
-            alert("Post is added")
+            alert("Comment is added")
             const newList = Object.assign({}, action.payload, state.list );
-            console.log(newList)
             return Object.assign({}, state, {
                 list: newList
             })
         }
-        case 'LOAD_MORE' : {
-            console.log("reducers LOAD MORE");
-            console.log(action.payload)
-            console.log(action.payload.objectsList)
-            return Object.assign({}, state, {
-                list: Object.assign( state.list, action.payload.objectsList),
-                offset: action.payload.offset
-            })
-        }
-        case 'LOAD_SINGLE_POST' : {
-            console.log("reducers LOAD single");
-            console.log(action.payload.post)
-            return Object.assign({}, state, {
-                selectedPost: action.payload.post
-            })
-        }
-
-        case 'CLEAN_SELECTED_POST' : {
-            console.log("reducers clean selected post");
-            return Object.assign({}, state, {
-                selectedPost: {}
-            })
-        }
+        // case 'LOAD_MORE' : {
+        //     console.log("reducers LOAD MORE");
+        //     console.log(action.payload)
+        //     console.log(action.payload.objectsList)
+        //     return Object.assign({}, state, {
+        //         list: Object.assign( state.list, action.payload.objectsList),
+        //         offset: action.payload.offset
+        //     })
+        // }
+        // case 'LOAD_SINGLE_POST' : {
+        //     console.log("reducers LOAD single");
+        //     console.log(action.payload.post)
+        //     return Object.assign({}, state, {
+        //         selectedPost: action.payload.post
+        //     })
+        // }
         // case 'DELETE_POST' : {
         //     console.log("reducers delete");
         //     console.log(action.payload.id);
