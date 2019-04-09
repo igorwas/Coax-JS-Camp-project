@@ -1,3 +1,5 @@
+const BASE_USERS_API_URL = 'http://localhost:3030/api/users/';
+
 const signUp = payload => ({
     type: 'SIGN_UP_NEW_USER',
     payload
@@ -22,10 +24,15 @@ const cleanSelected = payload => ({
     payload
 })
 
+const changeNotification = payload => ({
+    type: 'CHANGE_NOTIFICATION',
+    payload
+})
+
 const signUpNewUser = (user) =>{
     return dispatch =>{
         console.log(JSON.stringify(user));
-        fetch('http://localhost:3030/api/users/', {
+        fetch(BASE_USERS_API_URL, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -34,7 +41,12 @@ const signUpNewUser = (user) =>{
             })
             .then(res => res.json())
             .then(json => {
-                dispatch(signUp(json));
+                console.log(json)
+                if(json.status == "user-error"){
+                    dispatch(changeNotification({ type: 'warning', message: json.message}));
+                } else {
+                    dispatch(signUp(json));
+                }
             }).catch(err => err);
     }
 }
@@ -42,7 +54,7 @@ const signUpNewUser = (user) =>{
 const signInUser = (user) =>{
     return dispatch =>{
         console.log(JSON.stringify(user));
-        fetch('http://localhost:3030/api/users/authentificate', {
+        fetch(BASE_USERS_API_URL+'authentificate', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -51,7 +63,11 @@ const signInUser = (user) =>{
             })
             .then(res => res.json())
             .then(json => {
-                dispatch(signIn(json));
+                if(json.status == "user-error"){
+                    dispatch(changeNotification({ type: 'warning', message: json.message}));
+                } else {
+                    dispatch(signIn(json));
+                }
             }).catch(err => err);
     }
 }
@@ -65,7 +81,7 @@ const signOutUser = () =>{
 const getUserProfile = (id) =>{
     console.log(id)
     return dispatch =>{
-        fetch(`http://localhost:3030/api/users/${id}`)
+        fetch(BASE_USERS_API_URL+id)
             .then(res => res.json())
             .then(json => {
                 dispatch(getSingleUser(json));

@@ -15,7 +15,7 @@ class PostList extends Component{
 
     loadMore(){
         console.log(this.props.offset)
-        this.props.loadMore(this.props.offset+12)
+        this.props.loadMore(this.props.offset+12, this.props.userId)
     }
 
     render(){

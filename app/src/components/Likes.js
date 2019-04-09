@@ -15,11 +15,15 @@ class Likes extends Component{
     }
 
     like(){
-        this.props.likePost(this.props.postId)
+        if(localStorage.userId){
+            this.props.likePost(this.props.postId)
+        }
     }
 
     unlike(){
-        this.props.unlikePost(this.props.postId)
+        if(localStorage.userId){
+            this.props.unlikePost(this.props.postId)
+        }
     }
     
     render(){

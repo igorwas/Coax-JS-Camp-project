@@ -32,6 +32,10 @@ const cleanSelected = payload =>({
     payload
 })
 
+const changeNotification = payload => ({
+    type: 'CHANGE_NOTIFICATION',
+    payload
+})
 
 const fetchPostsByUser = (id) => {
     if(id!==undefined){
@@ -60,20 +64,33 @@ const fetchPostsByUser = (id) => {
                 .catch(error => console.log(error));   
         }    
     }
-    
 }
 
-const loadMorePosts = (offset) => {
-    return dispatch => {
-        fetch(`${BASE_POSTS_API_URL}?offset=${offset}`)
-            .then(response => response.json())
-            .then(json => {
-                const objectsList = arrayToObject(json.posts, "_id");
-                console.log("objec of objects load more");
-                console.log(objectsList);
-                dispatch(loadMore({ objectsList, offset }));
-            })
-            .catch(error => console.log(error));   
+const loadMorePosts = ( offset, userId) => {
+    if(userId !== undefined){
+        return dispatch => {
+            fetch(`${BASE_POSTS_API_URL}byuser/${userId}?offset=${offset}`)
+                .then(response => response.json())
+                .then(json => {
+                    const objectsList = arrayToObject(json.posts, "_id");
+                    console.log("objec of objects load more");
+                    console.log(objectsList);
+                    dispatch(loadMore({ objectsList, offset }));
+                })
+                .catch(error => console.log(error));   
+        }
+    } else {
+        return dispatch => {
+            fetch(`${BASE_POSTS_API_URL}?offset=${offset}`)
+                .then(response => response.json())
+                .then(json => {
+                    const objectsList = arrayToObject(json.posts, "_id");
+                    console.log("objec of objects load more 2");
+                    console.log(objectsList);
+                    dispatch(loadMore({ objectsList, offset }));
+                })
+                .catch(error => console.log(error));   
+        }
     }
 }
 
@@ -123,11 +140,11 @@ const createNewPost = (newPostData) =>{
                             const array = [json.post]
                             const objectsList = arrayToObject(array, "_id");
                             console.log(objectsList)
+                            dispatch(changeNotification({ type: 'success', message: 'Post is added'}));
                             dispatch(addNewPost(objectsList))
                         }).catch(err => console.log(err));
         }).catch(error => {
             console.error(error);
-            alert('Upload failed: ' + error);
         });
     }
 }

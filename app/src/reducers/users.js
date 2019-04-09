@@ -12,29 +12,21 @@ const userReducer = (state = initialState, action) => {
     switch(action.type){
         case 'SIGN_UP_NEW_USER' : {
             console.log("user reducer");
-            if(action.payload.status == "notification"){
-                alert(action.payload.message)
-            } else {
-                localStorage.userId = action.payload.id;
-                return Object.assign({}, state, {
-                    selectedUser: action.payload, 
-                    currentUserId: action.payload.id,
-                    redirectTo: `/profile/${action.payload.id}`
-                })
-            }
+            localStorage.userId = action.payload.id;
+            return Object.assign({}, state, {
+                selectedUser: action.payload, 
+                currentUserId: action.payload.id,
+                redirectTo: `/profile/${action.payload.id}`
+            })
         }
         case 'SIGN_IN' : {
             console.log("user reducer sign in");
-            if(action.payload.status == "notification"){
-                alert(action.payload.message)
-            } else {
-                localStorage.userId = action.payload.id;
-                return Object.assign({}, state, {
-                    selectedUser: action.payload,
-                    currentUserId: action.payload.id, 
-                    redirectTo: `/profile/${action.payload.id}`
-                })
-            }
+            localStorage.userId = action.payload.id;
+            return Object.assign({}, state, {
+                selectedUser: action.payload,
+                currentUserId: action.payload.id, 
+                redirectTo: `/profile/${action.payload.id}`
+            })  
         }
 
         case 'SIGN_OUT' : {

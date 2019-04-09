@@ -14,7 +14,7 @@ const mapStateToProps = ( state,props ) => ({
 const mapDispatchToProps = dispatch =>({
     getPostsFromServer: id => dispatch(fetchPostsByUser(id)),
     //deletePost: id => dispatch(deletePost(id))
-    loadMore: offset => dispatch(loadMorePosts(offset)) 
+    loadMore: (offset, id) => dispatch(loadMorePosts(offset, id)) 
 })
 
 export default connect( 

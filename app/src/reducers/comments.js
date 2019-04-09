@@ -20,7 +20,7 @@ const postsReducer = (state = initialState, action) => {
         case 'ADD_NEW_COMMENT' : {
             console.log("reducers add comment");
             console.log(action.payload)
-            alert("Comment is added")
+            console.log(state);
             const newList = Object.assign({}, action.payload, state.list );
             return Object.assign({}, state, {
                 list: newList

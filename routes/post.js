@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const Post = require("../models/post");
-// /?offset=
+// ?offset=
 router.get('/', (req, res) => {
 	Post.find({}, "imageUrl description").exec()
 		.then(allPosts => {
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 			res.send({ status: "error", err })
 		})
 })
-
+// ?offset=
 router.get('/byuser/:userId', (req, res) => {
 	Post.find({ userId: req.params.userId }, "imageUrl description").exec()
 		.then(allPosts => {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import Notification from '../containers/Notification';
+
 class Header extends Component {
     render(){
         const accountLinks = this.props.currentUserId !== undefined || localStorage.getItem('userId')  ? 
@@ -9,9 +11,9 @@ class Header extends Component {
         return(
             <header>
                 <h3>New Insta</h3>
-                <Link to='/'>Home  </Link>
-                <Link to='/posts'>PostsList</Link>
+                <Link to='/'>PostsList</Link>
                 { accountLinks }
+                <Notification />
             </header>  
         )
     }

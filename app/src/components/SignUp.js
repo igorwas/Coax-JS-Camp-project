@@ -27,42 +27,45 @@ class SignUp extends Component{
             return <Redirect to={redirectTo}/>;
         }
         return (
-            <form 
-                id="sign-up" 
-                className="col-md-6"
-                onSubmit={this.signUp}>
-                <input 
-                    name="email"
-                    type="text" 
-                    className="form-control mb-2"
-                    placeholder="Email"
-                    required
-                />
-                <input
-                    name="password"
-                    type="password"
-                    className="form-control mb-2"
-                    placeholder="Password"
-                    required
-                />
-                <input 
-                    name="firstName"
-                    type="text" 
-                    className="form-control mb-2"
-                    placeholder="First name"
-                />
-                <input 
-                    name="lastName"
-                    type="text" 
-                    className="form-control mb-2"
-                    placeholder="Last name"
-                />
-                
-                <button 
-                    className="btn btn-primary"
-                    type="submit">Sign up
-                </button>
-            </form>
+            <div className="row">
+                <form 
+                    id="sign-up" 
+                    className="col-md-6"
+                    onSubmit={this.signUp}>
+                    <input 
+                        name="email"
+                        type="text" 
+                        className="form-control mb-2"
+                        placeholder="Email"
+                        required
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        className="form-control mb-2"
+                        placeholder="Password"
+                        required
+                    />
+                    <input 
+                        name="firstName"
+                        type="text" 
+                        className="form-control mb-2"
+                        placeholder="First name"
+                    />
+                    <input 
+                        name="lastName"
+                        type="text" 
+                        className="form-control mb-2"
+                        placeholder="Last name"
+                    />
+                    
+                    <button 
+                        className="btn btn-primary"
+                        type="submit">Sign up
+                    </button>
+                </form>
+            </div>
+            
         )
     }
 }

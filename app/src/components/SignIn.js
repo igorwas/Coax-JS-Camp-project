@@ -25,30 +25,32 @@ class SingIn extends Component{
             return <Redirect to={redirectTo}/>;
         }
         return (
-            <form 
-                id="sign-in" 
-                className="col-md-6"
-                onSubmit={this.signIn}>
-                <input 
-                    name="email"
-                    type="text" 
-                    className="form-control mb-2"
-                    placeholder="Email"
-                    required
-                />
-                <input
-                    name="password"
-                    type="password"
-                    className="form-control mb-2"
-                    placeholder="Password"
-                    required
-                />
-                
-                <button 
-                    className="btn btn-primary"
-                    type="submit">Sign In
-                </button>
-            </form>
+            <div className="row">
+                <form 
+                    id="sign-in" 
+                    className="col-md-6"
+                    onSubmit={this.signIn}>
+                    <input 
+                        name="email"
+                        type="text" 
+                        className="form-control mb-2"
+                        placeholder="Email"
+                        required
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        className="form-control mb-2"
+                        placeholder="Password"
+                        required
+                    />
+                    
+                    <button 
+                        className="btn btn-primary"
+                        type="submit">Sign In
+                    </button>
+                </form>
+            </div>
         )
     }
 }

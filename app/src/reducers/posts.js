@@ -10,13 +10,13 @@ const postsReducer = (state = initialState, action) => {
             console.log("reducers init fetch");
             console.log(action.payload)
             return Object.assign({}, state, {
-                list: action.payload
+                list: action.payload,
+                offset: 0
             })
         }
         case 'ADD_NEW_POST' : {
             console.log("reducers add post");
             console.log(action.payload)
-            alert("Post is added")
             const newList = Object.assign({}, action.payload, state.list );
             console.log(newList)
             return Object.assign({}, state, {

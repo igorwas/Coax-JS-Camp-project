@@ -17,6 +17,11 @@ const createComment = payload => ({
     payload
 })
 
+const changeNotification = payload => ({
+    type: 'CHANGE_NOTIFICATION',
+    payload
+})
+
 // const addNewPost = payload =>({
 //     type: 'ADD_NEW_POST',
 //     payload
@@ -62,9 +67,10 @@ const createNewComment = (comment) =>{
             .then(res => res.json())
             .then(json => {
                 console.log(json)
-                const array = [json.comment]
+                const array = [json.comment];
                 const objectsList = arrayToObject(array, '_id');
-                console.log(objectsList)
+                console.log(objectsList);
+                dispatch(changeNotification({ type: 'success', message: 'Comment is added'}));
                 dispatch(createComment(objectsList))
             }).catch(err => console.log(err));
     }

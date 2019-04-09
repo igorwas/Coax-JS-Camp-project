@@ -18,13 +18,13 @@ class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<Route path="/" component={Header}/>
-					<Route path="/" exact component={()=><h1 className='col-12'>Homepage</h1>}/>
-					<Route path="/posts/:id" exact component={PostSinglePage} />
+					<Route path="/" exact component={PostList} />
 					<Route path="/posts/" exact component={PostList} />
-					<Route path="/sign-up" component={SignUp} />
-					<Route path="/sign-in" component={SignIn} />
-					<Route path="/sign-out" component={SignOut} />
-					<Route path="/profile/:id" component={UserProfile} />
+					<Route path="/posts/:id" exact component={PostSinglePage} />
+					<Route path="/sign-up" exact component={SignUp} />
+					<Route path="/sign-in" exact component={SignIn} />
+					<Route path="/sign-out" exact component={SignOut} />
+					<Route path="/profile/:id" exact component={UserProfile} />
 				</Router>
 			</Provider>
 		);

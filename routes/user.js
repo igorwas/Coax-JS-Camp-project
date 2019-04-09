@@ -27,11 +27,11 @@ router.post("/", (req, res) => {
 	const { email, password, firstName, lastName } = req.body;
 	
 	if(validateEmail(email)){
-		res.send({ status: "notification", message: "Email isn't valid" })
+		res.send({ status: "user-error", message: "Email isn't valid" })
 	} else {
 		User.find({email : email}).exec(function(err, findedUser) {
 			if (findedUser.length){
-				res.send({ status: "notification", message: "User with that email already exist" })
+				res.send({ status: "user-error", message: "User with that email already exist" })
 			} else {
 				User.create({ email, password, firstName, lastName }).then(result => {
 					console.log(result)
@@ -49,13 +49,17 @@ router.post("/authentificate", (req, res) => {
 	const { email, password } = req.body
 
 	if(validateEmail(email)){
-		res.send({ status: "notification", message: "Email isn't valid" })
+		res.send({ status: "user-error", message: "Email isn't valid" })
 	} else {
-		User.findOne({ email, password })
+		console.log('before find')
+		User.findOne({ email })
 			.then(result => {
-				if (result) {
+				console.log(result)
+				if(result == undefined){
+					res.send({ status: "user-error", message: "User not found" });
+				}else if (result.password == password) {
 					res.send({ status: "success", id: result._id })
-				}else res.send({ status: "notification", message: "User not found" });
+				}else res.send({ status: "user-error", message: "Password incorrect." });//
 				
 				console.log(result)
 
