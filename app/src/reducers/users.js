@@ -1,8 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-
 const initialState = {
-    users: {},
+    //users: {},
     selectedUser: {},
     currentUserId: '',
     redirectTo: ''
@@ -11,7 +8,6 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch(action.type){
         case 'SIGN_UP_NEW_USER' : {
-            console.log("user reducer");
             localStorage.userId = action.payload.id;
             return Object.assign({}, state, {
                 selectedUser: action.payload, 
@@ -20,7 +16,6 @@ const userReducer = (state = initialState, action) => {
             })
         }
         case 'SIGN_IN' : {
-            console.log("user reducer sign in");
             localStorage.userId = action.payload.id;
             return Object.assign({}, state, {
                 selectedUser: action.payload,
@@ -30,7 +25,6 @@ const userReducer = (state = initialState, action) => {
         }
 
         case 'SIGN_OUT' : {
-            console.log( "sign OUT");
             localStorage.clear();
             return Object.assign({}, state, {
                 currentUserId: '',
@@ -38,15 +32,12 @@ const userReducer = (state = initialState, action) => {
             })
         }
         case 'GET_USER_PROFILE' : {
-            console.log("user reducer get profile");
-            console.log(action.payload)
             return Object.assign({}, state, {
                 selectedUser: action.payload.user
             })
             
         }
         case 'CLEAN_SELECTED_USER' : {
-            console.log("reducers clean selected user");
             return Object.assign({}, state, {
                 selectedUser: {}
             })

@@ -24,11 +24,9 @@ class UserProfile extends Component {
     }
 
     render(){
-        console.log(this.props)
         const { 
             selectedUser
         } = this.props;
-        console.log(selectedUser._id)
         
         const name = (selectedUser.firstName || selectedUser.lastName) ? <h1>{ selectedUser.firstName } { selectedUser.lastName } </h1> : null;
         const createPost = selectedUser._id == localStorage.getItem('userId') ? <FormCreatePost /> : '';
@@ -48,7 +46,6 @@ class UserProfile extends Component {
                 </div>
                 <hr />
                 { postList }
-                
             </React.Fragment>
         )
     }

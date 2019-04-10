@@ -1,21 +1,18 @@
 const initialState = {
     type: '',
     message: '',
-    time: ''
+    time: '' //just for rerendering component when message will the same
 }
 
 const notificationReducer = (state = initialState, action) => {
     switch(action.type){
         case 'CHANGE_NOTIFICATION' : {
-            console.log("reducers notification");
-            console.log(action.payload)
             return Object.assign({}, state, {
                 type: action.payload.type,
                 message: action.payload.message,
                 time: new Date()
             })
         }
-
         default: return state;
     }
 }

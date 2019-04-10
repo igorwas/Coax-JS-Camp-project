@@ -13,16 +13,14 @@ class PostItem extends PureComponent{
         const description = itemData ? itemData.description : null;
         const imageUrl = itemData ? itemData.imageUrl : null;
         
-        return (
-            
+        return (     
             <React.Fragment key={id}>
                 <Link className='col-sm-6 col-lg-4 mb-2' to={`/posts/${id}`}>
                     <img className='img-fluid'
                         src={imageUrl} 
                         alt={description}/>
                 </Link>
-            </React.Fragment>
-            
+            </React.Fragment> 
         )
     }
 }

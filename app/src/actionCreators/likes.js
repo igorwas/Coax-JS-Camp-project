@@ -15,7 +15,6 @@ const changeIsLiked = payload => ({
     payload
 })
 
-
 const getAmountOfLikes = (postId) =>{
     return dispatch =>{
         console.log(postId);
@@ -29,11 +28,9 @@ const getAmountOfLikes = (postId) =>{
 
 const getIsLikedPost = (postId) =>{
     return dispatch =>{
-        console.log(postId);
         fetch(BASE_LIKES_API_URL+postId+'/is-liked?userId='+localStorage.getItem('userId'))
             .then(res => res.json())
             .then(json => {
-                console.log(json.isLiked)
                 dispatch(getIsLiked(json.isLiked));
             }).catch(err => err);
     }
@@ -41,7 +38,6 @@ const getIsLikedPost = (postId) =>{
 
 const likePost = (postId) =>{
     return dispatch =>{
-        console.log(JSON.stringify({ userId: localStorage.getItem('userId') }));
         fetch(BASE_LIKES_API_URL+postId+'/likes',{
             method: 'POST',
             headers: {
@@ -51,7 +47,6 @@ const likePost = (postId) =>{
             })
             .then(res => res.json())
             .then(json => {
-                console.log(json.isLiked)
                 dispatch(changeIsLiked(json.isLiked));
             }).catch(err => err);
     }
@@ -59,7 +54,6 @@ const likePost = (postId) =>{
 
 const unlikePost = (postId) =>{
     return dispatch =>{
-        console.log(JSON.stringify({ userId: localStorage.getItem('userId') }));
         fetch(BASE_LIKES_API_URL+postId+'/likes',{
             method: 'DELETE',
             headers: {
@@ -69,7 +63,6 @@ const unlikePost = (postId) =>{
             })
             .then(res => res.json())
             .then(json => {
-                console.log(json.isLiked)
                 dispatch(changeIsLiked(json.isLiked));
             }).catch(err => err);
     }

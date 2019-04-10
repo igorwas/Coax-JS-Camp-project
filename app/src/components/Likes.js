@@ -8,7 +8,6 @@ class Likes extends Component{
         this.unlike = this.unlike.bind(this);
     }
 
-
     componentDidMount(){
         this.props.getAmountOfLikes(this.props.postId);
         this.props.getIsLiked(this.props.postId);

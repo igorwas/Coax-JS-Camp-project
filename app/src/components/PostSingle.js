@@ -16,7 +16,6 @@ class PostSinglePage extends Component {
     }
 
     loadUser(id){
-        console.log(id)
         this.props.getUserProfile(id);
     }
 
@@ -27,17 +26,13 @@ class PostSinglePage extends Component {
         } = this.props
 
         const tags = post.tags ? post.tags : [] ;
-        console.log(author);
         if(author == undefined || author._id !== post.userId ) this.loadUser(post.userId);
-        console.log(author)
         const authorLink = author ? <Link to={`/profile/${author._id}`}><h5>Author: {author.firstName} {author.lastName}</h5></Link> : null ;    
         const createdAt = new Date(+post.createdAt).toLocaleString("ua-UA");
-        console.log(post._id)
         const likes = post._id ? <Likes postId={post._id} /> : null;
         const createComment = localStorage.getItem("userId") ? 
             <div className='row'><div className='col-12'><hr className='hr-bolded'/><h4>Add comment:</h4><hr /></div><FormCreateComment /></div> : null;
         const comments = post._id ? <CommentList postId = { post._id }/> : '';
-        
         
         return(
             <React.Fragment>

@@ -9,11 +9,9 @@ class CommentList extends Component{
     }
 
     render(){
-        console.log(this.props)
         const {
             comments
         } = this.props;
-        console.log(comments)
         const noComments = comments == {} || comments == undefined || Object.keys(comments) == 0 ? <h5>There is no comments yet.</h5> : '';
         return(
             <div className="row">
@@ -38,7 +36,6 @@ class CommentList extends Component{
     }
 
     componentWillUnmount(){
-        console.log('component will unmount')
         this.props.cleanComments();
     }
 

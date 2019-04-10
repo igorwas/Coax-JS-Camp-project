@@ -18,11 +18,9 @@ class SignUp extends Component{
     }
 
     render(){
-        console.log(this.props);
         const {
             redirectTo
         } = this.props
-        console.log(redirectTo);
         if(redirectTo){
             return <Redirect to={redirectTo}/>;
         }
@@ -34,7 +32,7 @@ class SignUp extends Component{
                     onSubmit={this.signUp}>
                     <input 
                         name="email"
-                        type="text" 
+                        type="text" // changed for showing notification "Email isn't valid"
                         className="form-control mb-2"
                         placeholder="Email"
                         required
@@ -65,7 +63,6 @@ class SignUp extends Component{
                     </button>
                 </form>
             </div>
-            
         )
     }
 }

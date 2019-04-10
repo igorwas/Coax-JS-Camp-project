@@ -22,25 +22,12 @@ const changeNotification = payload => ({
     payload
 })
 
-// const addNewPost = payload =>({
-//     type: 'ADD_NEW_POST',
-//     payload
-// })
-
-// const loadSingle = payload =>({
-//     type: 'LOAD_SINGLE_POST',
-//     payload
-// })
-
 const fetchComments = (id) => {
     return dispatch => {
         fetch(BASE_COMMENTS_API_URL+id+'/comments')
             .then(response => response.json())
             .then(json => {
-                console.log(json);
                 const objectsList = arrayToObject(json.comments, '_id') ;
-                console.log('comments from server');
-                console.log(objectsList);
                 dispatch(getComments(objectsList));
             })
             .catch(error => console.log(error));   
@@ -55,8 +42,6 @@ const cleanComments = () => {
 
 const createNewComment = (comment) =>{
     return dispatch =>{
-        console.log(comment);
-        console.log(JSON.stringify(comment));
         fetch(BASE_COMMENTS_API_URL+comment.postId+'/comment', {
             headers: {
                 'Content-Type': 'application/json'
@@ -66,10 +51,8 @@ const createNewComment = (comment) =>{
             })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 const array = [json.comment];
                 const objectsList = arrayToObject(array, '_id');
-                console.log(objectsList);
                 dispatch(changeNotification({ type: 'success', message: 'Comment is added'}));
                 dispatch(createComment(objectsList))
             }).catch(err => console.log(err));

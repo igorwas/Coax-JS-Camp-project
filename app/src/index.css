@@ -1,3 +1,21 @@
 .container-fluid-custom{
 	max-width: 1140px;
 }
+header{
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+}
+header a{
+    color: black;
+    text-decoration: none;
+    margin-right: 20px;
+}
+.hr-bolded{
+    height: 2px;
+    background: black
+}
+
+.heart{
+    max-width: 30px;
+    margin-right: 10px;
+}

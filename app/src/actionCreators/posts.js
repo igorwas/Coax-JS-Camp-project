@@ -44,8 +44,6 @@ const fetchPostsByUser = (id) => {
                 .then(response => response.json())
                 .then(json => {
                     const objectsList = arrayToObject(json.posts, "_id");
-                    console.log("objec of objects from server");
-                    console.log(objectsList);
                     dispatch(updatePostList(objectsList));
                 })
                 .catch(error => console.log(error));   
@@ -57,8 +55,6 @@ const fetchPostsByUser = (id) => {
                 .then(response => response.json())
                 .then(json => {
                     const objectsList = arrayToObject(json.posts, "_id");
-                    console.log("objec of objects from server");
-                    console.log(objectsList);
                     dispatch(updatePostList(objectsList));
                 })
                 .catch(error => console.log(error));   
@@ -73,8 +69,6 @@ const loadMorePosts = ( offset, userId) => {
                 .then(response => response.json())
                 .then(json => {
                     const objectsList = arrayToObject(json.posts, "_id");
-                    console.log("objec of objects load more");
-                    console.log(objectsList);
                     dispatch(loadMore({ objectsList, offset }));
                 })
                 .catch(error => console.log(error));   
@@ -85,8 +79,6 @@ const loadMorePosts = ( offset, userId) => {
                 .then(response => response.json())
                 .then(json => {
                     const objectsList = arrayToObject(json.posts, "_id");
-                    console.log("objec of objects load more 2");
-                    console.log(objectsList);
                     dispatch(loadMore({ objectsList, offset }));
                 })
                 .catch(error => console.log(error));   
@@ -100,7 +92,6 @@ const loadSinglePost = (id) => {
         fetch(BASE_POSTS_API_URL+id)
             .then(response => response.json())
             .then(json => {
-                console.log(json);
                 dispatch(loadSingle(json))
             }).catch(error => console.log(error))   
     }
@@ -108,8 +99,6 @@ const loadSinglePost = (id) => {
 
 const createNewPost = (newPostData) =>{
     return dispatch =>{
-        console.log("inside create post")
-        console.log(newPostData);
         fetch('https://api.imgur.com/3/image', {
             method: 'POST',
             headers: {
@@ -118,15 +107,12 @@ const createNewPost = (newPostData) =>{
             body: newPostData.image})
             .then( response => response.json())
             .then(json => {
-                console.log(json)
-                console.log(newPostData)
                 const post = {
                     userId: newPostData.userId,
                     imageUrl: json.data.link,
                     description: newPostData.description,
                     tags: newPostData.tags
                 }
-                console.log(JSON.stringify(post))
                 fetch(BASE_POSTS_API_URL, {
                         headers: {
                             'Content-Type': 'application/json'
@@ -136,10 +122,8 @@ const createNewPost = (newPostData) =>{
                         })
                         .then(res => res.json())
                         .then(json => {
-                            console.log(json)
                             const array = [json.post]
                             const objectsList = arrayToObject(array, "_id");
-                            console.log(objectsList)
                             dispatch(changeNotification({ type: 'success', message: 'Post is added'}));
                             dispatch(addNewPost(objectsList))
                         }).catch(err => console.log(err));

@@ -4,6 +4,7 @@ const signUp = payload => ({
     type: 'SIGN_UP_NEW_USER',
     payload
 })
+
 const signIn = payload => ({
     type: 'SIGN_IN',
     payload
@@ -31,7 +32,6 @@ const changeNotification = payload => ({
 
 const signUpNewUser = (user) =>{
     return dispatch =>{
-        console.log(JSON.stringify(user));
         fetch(BASE_USERS_API_URL, {
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,6 @@ const signUpNewUser = (user) =>{
             })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 if(json.status == "user-error"){
                     dispatch(changeNotification({ type: 'warning', message: json.message}));
                 } else {
@@ -53,7 +52,6 @@ const signUpNewUser = (user) =>{
 
 const signInUser = (user) =>{
     return dispatch =>{
-        console.log(JSON.stringify(user));
         fetch(BASE_USERS_API_URL+'authentificate', {
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +77,6 @@ const signOutUser = () =>{
 }
 
 const getUserProfile = (id) =>{
-    console.log(id)
     return dispatch =>{
         fetch(BASE_USERS_API_URL+id)
             .then(res => res.json())

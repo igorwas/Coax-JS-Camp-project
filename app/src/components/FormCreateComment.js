@@ -8,7 +8,6 @@ class FormCreatePost extends Component{
 
     onSubmitForm(e){
         e.preventDefault();
-        console.log(this.props)
         const newComment = {
             userId: localStorage.getItem("userId"),
             comment: e.target.comment.value, 

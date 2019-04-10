@@ -37,7 +37,6 @@ class PostList extends Component{
                                 postId = { id }
                             />
                     ))
-                        
                     //         <React.Fragment key={id}>
                     //             <Link className='col-sm-6 col-lg-4 mb-2' to={`/posts/${id}`}>
                     //                 <img className='img-fluid'
@@ -51,9 +50,7 @@ class PostList extends Component{
                     {loadMoreBtn}
             </div>
         )
-
     }
-
 }
 
 export default PostList;

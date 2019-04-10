@@ -34,7 +34,6 @@ router.post("/", (req, res) => {
 				res.send({ status: "user-error", message: "User with that email already exist" })
 			} else {
 				User.create({ email, password, firstName, lastName }).then(result => {
-					console.log(result)
 					res.send({ status: "created", id: result._id })
 				}).catch(err => {
 					console.log(err);
@@ -51,17 +50,13 @@ router.post("/authentificate", (req, res) => {
 	if(validateEmail(email)){
 		res.send({ status: "user-error", message: "Email isn't valid" })
 	} else {
-		console.log('before find')
 		User.findOne({ email })
 			.then(result => {
-				console.log(result)
 				if(result == undefined){
 					res.send({ status: "user-error", message: "User not found" });
 				}else if (result.password == password) {
 					res.send({ status: "success", id: result._id })
 				}else res.send({ status: "user-error", message: "Password incorrect." });//
-				
-				console.log(result)
 
 				res.send({ status: "created", id: result._id  })
 			}).catch(err => {

@@ -5,7 +5,6 @@ const Like = require("../models/like");
 router.get('/:postId/likes', (req, res) => {
 	Like.find({ postId: req.params.postId }).exec()
 		.then(allLikes => {
-			console.log(allLikes.length)
 			res.send({ status: "success", amountOfLikes: allLikes.length });
 		})
 		.catch(err => {
@@ -30,10 +29,8 @@ router.get('/:postId/is-liked', (req, res) => {
 })
 
 router.post('/:postId/likes', (req, res) => {
-	console.log(req.body)
 	Like.create({ postId: req.params.postId , userId: req.body.userId })
 		.then(like => {
-			console.log(like)
 			res.send({ status: "created", isLiked: true});			
 		})
 		.catch(err => {
